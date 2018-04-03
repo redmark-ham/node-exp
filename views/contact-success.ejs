@@ -13,17 +13,8 @@
 <body>
   <% include partials/nav.ejs %>
   <h1>Contact Us!</h1>
-  <form id="contact-form" method="POST" action="/contact">
-    <label for="who">Who do you want to contact?</label><br>
-    <input type="text" name="who" value="<%= qs.person %>"><br>
-
-    <label for="dept">Which department?</label><br>
-    <input type="text" name="dept" value="<%= qs.dept %>"><br>
-
-    <label for="email">Your e-mail?</label><br>
-    <input type="email" name="email" value=""><br>
-
-    <input type="submit" name="" value="submit">
-  </form>
+  <p>Thanks for getting in touch!</p>
+  <p>You contacted <strong><%= data.who%></strong> in the <strong><%= data.dept%></strong> department.</p>
+  <p>We will reply to you at <strong><%= data.email%><strong></p>
 </body>
 </html>
