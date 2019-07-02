@@ -142,6 +142,21 @@ const doc =
       },
       {
         aliases: [
+          'ACME-US'
+        ],
+        admin_users: [
+          'daniel@us.acme.com'
+        ],
+        email_domains: [
+          'acme.com',
+          'us.acme.com'
+        ],
+        email_body: '<p>Dear <customer>,</p><p>Due to cloud policy ACME Support is not allowed to make any changes related to cloud accounts.</p><p>Please contact the cloud administration team for further assistance: help@acme.com</p><p>Thank you.</p><p>Kind regards,</p><p>ACME Support</p>',
+        dry_run: false,
+        email_subject: 'Special customer account auto-response'
+      },
+      {
+        aliases: [
           'ACME-Cloudx'
         ],
         admin_users: [],
@@ -154,8 +169,8 @@ const doc =
 const specialAccounts = doc.special_accounts_aliases;
 
 //  -----
-const getSpecialAccountByName = (accounts, name) =>
-  _.find(accounts, e => _.includes(_.map(e.aliases, _.method('toLowerCase')), name.toLowerCase()));
+const getSpecialAccountByName = (specialAccs, name) =>
+  _.find(specialAccs, e => _.includes(_.map(e.aliases, _.method('toLowerCase')), name.toLowerCase()));
 
 const account = getSpecialAccountByName(specialAccounts, 'ACME-Cloudx');
 console.log(JSON.stringify(account.email_body, null, 2));
@@ -200,4 +215,12 @@ const getOtherEnabledAccounts = (supertoolAccs, specialAccs) => _.filter(superto
 });
 const otherEnabledAccounts = getOtherEnabledAccounts(supertoolAccounts, specialAccounts);
 console.log(JSON.stringify(otherEnabledAccounts, null, 2));
+// -----
+
+// -----
+const getMatchingDomainAccounts = (specialAccs, name) =>
+  _.find(specialAccs, e => _.includes(_.map(e.email_domains, _.method('toLowerCase')), name.toLowerCase()));
+
+const domainAccounts = getMatchingDomainAccounts(specialAccounts, 'us.acme.com');
+console.log(JSON.stringify(domainAccounts, null, 2));
 // -----
